@@ -1,0 +1,24 @@
+{
+    "name": "lesson04",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "run": "./node_modules/.bin/nodemon",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/express": "^4.17.13",
+        "@types/http-status-codes": "^1.2.0",
+        "@types/node": "^17.0.13",
+        "nodemon": "^2.0.15",
+        "typescript": "^4.5.5"
+    },
+    "dependencies": {
+        "express": "^4.17.2",
+        "http-status-codes": "^2.2.0"
+    }
+}
