@@ -3,7 +3,7 @@ version: "3.1"
 services:
     mongo:
         image: mongo:5.0.6
-        restart: always
+        # restart: always
         ports:
             - 27017:27017
         environment:
@@ -12,7 +12,7 @@ services:
 
     mongo-express:
         image: mongo-express:1.0.0-alpha.4
-        restart: always
+        # restart: always
         ports:
             - 8081:8081
         environment:
