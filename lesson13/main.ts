@@ -1,14 +1,15 @@
-import { MongoClient } from "mongodb";
-const DbUrl = "mongodb://root:example@localhost:27017/";
-const DbName = "recipe_db";
+import mysql from "mysql";
 
-MongoClient.connect(DbUrl, (error, client) => {
+var connection = mysql.createConnection({
+    host: "localhost",
+    user: "mysql",
+    password: "mysql",
+    port: 8081,
+    database: "recipe_db",
+});
+
+connection.connect();
+connection.query("select * from contacts;", (error, result, fields) => {
     if (error) throw error;
-    const db = client?.db(DbName);
-    db?.collection("contacts")
-        .find()
-        .toArray((error, data) => {
-            if (error) throw error;
-            console.log(data);
-        });
+    console.log(result);
 });
