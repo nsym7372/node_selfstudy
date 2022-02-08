@@ -18,6 +18,29 @@ export const getAllSubscribers = (
         });
 };
 
+export const getSubscriptionPage = (
+    req: express.Request,
+    res: express.Response
+) => {
+    res.render("contact");
+};
+
+export const saveSubscriber = (req: express.Request, res: express.Response) => {
+    //
+    console.log(req.body);
+    db.Subscriber.create({
+        name: req.body.name,
+        email: req.body.email,
+        zipcode: req.body.zipcode,
+    })
+        .then((result) => {
+            res.render("thanks");
+        })
+        .catch((err) => {
+            res.send("error");
+        });
+};
+
 // export const sendReqParam = (req: express.Request, res: express.Response) => {
 //     const veg = req.params.vegetable;
 //     res.send(`this is the page for ${veg} / from controller`);

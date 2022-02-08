@@ -2,6 +2,12 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
 
 export class Subscriber extends Model {
+    public id!: number;
+    public name!: string;
+    public email!: string;
+    public zipcode!: string;
+    public createdAt!: Date;
+    public updatedAt!: Date;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
