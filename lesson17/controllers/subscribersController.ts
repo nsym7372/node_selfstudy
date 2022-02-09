@@ -1,4 +1,5 @@
 import express from "express";
+import { Course } from "../db/models/course";
 import { db } from "../db/models/index";
 import { Subscriber } from "../db/models/subscriber";
 
@@ -8,10 +9,10 @@ export const getAllSubscribers = (
     next: express.NextFunction
 ) => {
     //
-    db.Subscriber.findAll()
+    db.Subscriber.findAll({ include: Course })
         .then((subscribers) => {
-            // res.send(subscribers);
-            res.render("subscribers", { subscribers: subscribers });
+            res.send(subscribers);
+            // res.render("subscribers", { subscribers: subscribers });
         })
         .catch((error) => {
             next(error);

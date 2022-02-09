@@ -2,6 +2,7 @@
 
 import { Sequelize, Model, Dialect } from "sequelize";
 import { Subscriber } from "./subscriber";
+import { Course } from "./course";
 import config_dev from "../config/config.json";
 const config = config_dev.development;
 
@@ -18,6 +19,7 @@ const sequelize = new Sequelize(
 
 export const db = {
     Subscriber: Subscriber.initialize(sequelize),
+    Course: Course.initialize(sequelize),
 };
 
 Object.keys(db).forEach((tableName) => {

@@ -10,6 +10,7 @@ export class Subscriber extends Model {
      */
     static associate(models: typeof db) {
         // define association here
+        this.belongsTo(models.Course, { foreignKey: "course_id" });
     }
 
     public static initialize(sequelize: Sequelize) {
