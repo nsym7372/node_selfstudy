@@ -1,7 +1,7 @@
 import express from "express";
 import { Course } from "../db/models/course";
 import { db } from "../db/models/index";
-import { Subscriber } from "../db/models/subscriber";
+// import { Subscriber } from "../db/models/subscriber";
 
 export const getAllSubscribers = (
     req: express.Request,
