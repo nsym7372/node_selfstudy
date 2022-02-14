@@ -10,88 +10,40 @@ module.exports = {
          *   isBetaMember: false
          * }], {});
          */
-        const course_id = queryInterface
-            .rawSelect("Courses", {}, ["id"])
-            .then((course_id) => {
-                const course = queryInterface.bulkInsert(
-                    "Subscribers",
-                    [
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 11111,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                            course_id: course_id,
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 22222,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 33333,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 44444,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 55555,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 66666,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 77777,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 88888,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 99999,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                        {
-                            name: "aaa",
-                            email: "aaa@sample.com",
-                            zipcode: 10000,
-                            createdAt: new Date(),
-                            updatedAt: new Date(),
-                        },
-                    ],
-                    {}
-                );
+        await queryInterface
+            .bulkInsert("Courses", [
+                {
+                    name: "aaa",
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                },
+            ])
+            .then((course) => {
+                queryInterface.bulkInsert("Subscribers", [
+                    {
+                        name: "aaa",
+                        email: "aaa@sample.com",
+                        zipcode: 11111,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                        course_id: course,
+                    },
+                    {
+                        name: "aaa",
+                        email: "aaa@sample.com",
+                        zipcode: 22222,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                    },
+                    {
+                        name: "aaa",
+                        email: "aaa@sample.com",
+                        zipcode: 33333,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                    },
+                ]);
             });
-        console.log(course_id);
     },
 
     async down(queryInterface, Sequelize) {
@@ -101,6 +53,8 @@ module.exports = {
          * Example:
          * await queryInterface.bulkDelete('People', null, {});
          */
-        queryInterface.bulkDelete("Subscribers", null, {});
+        queryInterface.bulkDelete("Subscribers", null, {}).then(() => {
+            queryInterface.bulkDelete("Courses", null, {});
+        });
     },
 };
