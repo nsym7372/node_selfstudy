@@ -1,14 +1,14 @@
 "use strict";
 import { Model, Sequelize, DataTypes } from "sequelize";
-import { db } from "./index";
 
 export class Course extends Model {
+    public user_id!: number;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models: typeof db) {
+    static associate() {
         // define association here
         // this.hasMany(models.Subscriber);
     }

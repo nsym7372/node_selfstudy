@@ -1,15 +1,23 @@
 "use strict";
 import { Model, Sequelize, DataTypes } from "sequelize";
-import { db } from "./index";
+import { Course } from "./course";
 export class User extends Model {
+    public sample!: string;
+    public firstName!: string;
+    public lastName!: string;
+    public email!: string;
+    public zipcode!: number;
+    public password!: string;
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models: typeof db) {
+    static associate() {
         // define association here
-        this.hasMany(models.Course, { foreignKey: "user_id" });
+        this.hasMany(Course, { foreignKey: "user_id" });
     }
 
     public static initialzie(sequelize: Sequelize) {

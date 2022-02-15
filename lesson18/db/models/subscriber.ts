@@ -1,6 +1,6 @@
 "use strict";
 import { Sequelize, Model, DataTypes } from "sequelize";
-import { db } from "./index";
+import { Course } from "./course";
 
 export class Subscriber extends Model {
     /**
@@ -8,9 +8,9 @@ export class Subscriber extends Model {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models: typeof db) {
+    static associate() {
         // define association here
-        this.belongsTo(models.Course, { foreignKey: "course_id" });
+        this.belongsTo(Course, { foreignKey: "course_id" });
     }
 
     public static initialize(sequelize: Sequelize) {

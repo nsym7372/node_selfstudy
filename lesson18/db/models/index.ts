@@ -28,6 +28,6 @@ Object.keys(db).forEach((tableName) => {
     const modelname = tableName as keyof typeof db;
     const model = db[modelname];
     if (model.associate) {
-        model.associate(db);
+        model.associate();
     }
 });
