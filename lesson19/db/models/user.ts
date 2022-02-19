@@ -17,7 +17,7 @@ export class User extends Model {
         this.hasMany(models.Course, { foreignKey: "user_id" });
     }
 
-    public static initialzie(sequelize: Sequelize) {
+    public static initialize(sequelize: Sequelize) {
         this.init(
             {
                 firstName: DataTypes.STRING,
@@ -36,7 +36,7 @@ export class User extends Model {
             },
             {
                 sequelize,
-                modelName: "Users",
+                modelName: "users",
             }
         );
         return this;

@@ -5,6 +5,8 @@ import { Subscriber } from "./subscriber";
 import { Course } from "./course";
 import config_dev from "../config/config.json";
 import { User } from "./user";
+import { Section } from "./section";
+import { Area } from "./area";
 const config = config_dev.development;
 
 const sequelize = new Sequelize(
@@ -21,7 +23,9 @@ const sequelize = new Sequelize(
 export const db = {
     Subscriber: Subscriber.initialize(sequelize),
     Course: Course.initialize(sequelize),
-    User: User.initialzie(sequelize),
+    User: User.initialize(sequelize),
+    Section: Section.initialize(sequelize),
+    Area: Area.initialize(sequelize),
 };
 
 Object.keys(db).forEach((tableName) => {
