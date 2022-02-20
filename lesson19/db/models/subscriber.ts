@@ -3,6 +3,10 @@ import { Sequelize, Model, DataTypes } from "sequelize";
 import { db } from "./index";
 
 export class Subscriber extends Model {
+    public id!: number;
+    public name!: string;
+    public email!: string;
+    public zipcode!: number;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -34,7 +38,7 @@ export class Subscriber extends Model {
             },
             {
                 sequelize,
-                modelName: "Subscriber",
+                modelName: "subscriber",
             }
         );
         return this;

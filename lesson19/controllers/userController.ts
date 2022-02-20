@@ -20,6 +20,7 @@ export const generate: actionType = (req, res, next) => {
         email: req.body.email,
         zipcode: req.body.zipcode,
         password: req.body.password,
+        subscriber_id: undefined,
         createdAt: new Date(),
         updatedAt: new Date(),
     })
