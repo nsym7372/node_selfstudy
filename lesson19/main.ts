@@ -8,11 +8,12 @@ app.use(layout);
 app.set("view engine", "ejs");
 
 app.get("/user", userController.create);
+app.post("/user", userController.generate, userController.redirectView);
 app.get("/sample", (req: express.Request, res: express.Response) => {
-  res.render("sample");
+    res.render("sample");
 });
 
 const port = 3000;
 app.listen(port, () => {
-  console.log(`server runnning on port: ${port}`);
+    console.log(`server runnning on port: ${port}`);
 });
