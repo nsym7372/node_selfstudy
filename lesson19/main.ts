@@ -7,6 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(layout);
 app.set("view engine", "ejs");
 
+app.get("/user/index", userController.index);
 app.get("/user/create", userController.create);
 app.post("/user/create", userController.generate, userController.redirectView);
 app.get("/user/detail/:id", userController.detail, userController.detailView);

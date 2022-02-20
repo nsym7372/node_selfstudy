@@ -61,6 +61,18 @@ export const detailView: actionType = (req, res, next) => {
     res.render("user/detail", { user: res.locals.user });
 };
 
+export const index: actionType = (req, res, next) => {
+    db.User.findAll()
+        .then((users) => (res.locals.users = users))
+        .catch((error) => {
+            console.log(`Error fetching users ${error}`);
+        });
+};
+
+export const indexView: actionType = (req, res, next) => {
+    res.render("user/index", { users: res.locals.users });
+};
+
 // export const create = (
 //   req: express.Request,
 //   res: express.Response,
