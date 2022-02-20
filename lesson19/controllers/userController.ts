@@ -1,5 +1,6 @@
 import express from "express";
 import { db } from "../db/models";
+import { User } from "../db/models/user";
 
 type actionType = (
     req: express.Request,
@@ -25,7 +26,7 @@ export const generate: actionType = (req, res, next) => {
         updatedAt: new Date(),
     })
         .then((user) => {
-            res.locals.redirect = "/user/create";
+            res.locals.redirect = "/user/index";
             res.locals.user = user;
             next();
         })
@@ -75,6 +76,44 @@ export const index: actionType = (req, res, next) => {
 
 export const indexView: actionType = (req, res, next) => {
     res.render("user/index", { users: res.locals.users });
+};
+
+export const update: actionType = (req, res, next) => {
+    db.User.findByPk(req.params.id)
+        .then((user) => {
+            res.locals.user = user;
+            next();
+        })
+        .catch((error) => {
+            console.log(`Error fetchning user: ${error.message}`);
+            next(error);
+        });
+};
+
+export const updateView: actionType = (req, res, next) => {
+    res.render("user/update", { user: res.locals.user });
+};
+
+export const edit: actionType = (req, res, next) => {
+    console.log(req.params.id);
+    db.User.findByPk(req.params.id)
+        .then((user) => {
+            console.log(user);
+            if (user) {
+                user.firstName = req.body.firstName;
+                user.lastName = req.body.lastName;
+                user.email = req.body.email;
+                user.password = req.body.password;
+                user.zipcode = req.body.zipcode;
+                user.save();
+            }
+            res.locals.redirect = "/user/index";
+            next();
+        })
+        .catch((error) => {
+            console.log(`Error updating user: ${error.message}`);
+            next(error);
+        });
 };
 
 // export const create = (
