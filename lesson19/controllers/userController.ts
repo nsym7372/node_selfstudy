@@ -25,7 +25,7 @@ export const generate: actionType = (req, res, next) => {
         updatedAt: new Date(),
     })
         .then((user) => {
-            res.locals.redirect = "/user";
+            res.locals.redirect = "/user/create";
             res.locals.user = user;
             next();
         })
@@ -42,6 +42,23 @@ export const redirectView: actionType = (req, res, next) => {
     } else {
         next();
     }
+};
+
+export const detail: actionType = (req, res, next) => {
+    db.User.findByPk(req.params.id)
+        .then((user) => {
+            //
+            res.locals.user = user;
+            next();
+        })
+        .catch((error) => {
+            console.log(`Error fetching user by ID: ${error.message}`);
+            next(error);
+        });
+};
+
+export const detailView: actionType = (req, res, next) => {
+    res.render("user/detail", { user: res.locals.user });
 };
 
 // export const create = (
