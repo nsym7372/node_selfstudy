@@ -34,6 +34,9 @@
                         <th
                             class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"
                         ></th>
+                        <th
+                            class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"
+                        ></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +48,13 @@
                         <td class="px-4 py-3"><%- user.password %></td>
                         <td class="w-10 text-center">
                             <a href="<%- `/user/update/${user.id}` %> ">Edit</a>
+                        </td>
+                        <td class="w-10 text-center">
+                            <a
+                                href="<%- `/user/delete/${user.id}?_method=DELETE` %>"
+                                onclick="return confirm('Are you sure you want to delete this record?')"
+                                >Delete</a
+                            >
                         </td>
                     </tr>
                     <% }) %>

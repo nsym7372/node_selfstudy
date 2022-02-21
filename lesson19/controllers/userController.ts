@@ -116,20 +116,16 @@ export const edit: actionType = (req, res, next) => {
         });
 };
 
-// export const create = (
-//   req: express.Request,
-//   res: express.Response,
-//   next: NextFunction
-// ) => {
-//   db.User.create({
-//     firstName: req.body.firstName,
-//     lastName: req.body.lastname,
-//     email: req.body.email,
-//     zipcode: req.body.zipcode,
-//     password: req.body.password,
-//   }).then((user) => {
-//     res.locals.redirect = "/user";
-//     res.locals.user = user;
-//     next();
-//   });
-// };
+export const destroy: actionType = (req, res, next) => {
+    //
+    console.log("delete");
+    db.User.destroy({ where: { id: [req.params.id] } })
+        .then(() => {
+            res.locals.redirect = "/user/index";
+            next();
+        })
+        .catch((error) => {
+            console.log(`Error deleting user: ${error.message}`);
+            next(error);
+        });
+};
