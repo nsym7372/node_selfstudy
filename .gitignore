@@ -1,2 +1,3 @@
 node_modules
 *.ipynb
+!非同期関連/*
