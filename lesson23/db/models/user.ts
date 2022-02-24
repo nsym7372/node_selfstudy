@@ -65,7 +65,7 @@ export class User extends Model {
                                 );
                             });
                     },
-                    beforeSave: async (user, option) => {
+                    beforeValidate: async (user, option) => {
                         await bcrypt
                             .hash(user.password, 10)
                             .then((hash) => {

@@ -1,6 +1,6 @@
 import express from "express";
 import { db } from "../db/models";
-import { User } from "../db/models/user";
+import bcrypt from "bcrypt";
 
 type actionType = (
     req: express.Request,
@@ -140,10 +140,13 @@ export const login: actionType = (req, res, next) => {
     res.render("user/login");
 };
 
-export const authenticate: actionType = (req, res, next) => {
-    db.User.findOne({ where: { email: req.body.email } })
-        .then((user) => {
-            if (user !== null && user.password === req.body.password) {
+export const authenticate: actionType = async (req, res, next) => {
+    await db.User.findOne({ where: { email: req.body.email } })
+        .then(async (user) => {
+            if (
+                user !== null &&
+                (await bcrypt.compare(req.body.password, user.password))
+            ) {
                 res.locals.redirect = `/user/index`;
                 req.flash(
                     "success",
