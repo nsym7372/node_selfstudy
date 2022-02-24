@@ -137,3 +137,7 @@ export const destroy: actionType = (req, res, next) => {
             next(error);
         });
 };
+
+export const login: actionType = (req, res, next) => {
+    res.render("user/login", { layout: false });
+};

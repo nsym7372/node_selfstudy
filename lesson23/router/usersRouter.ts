@@ -37,3 +37,11 @@ userRouter.delete(
     userController.destroy,
     userController.redirectView
 );
+
+userRouter.get("/login", userController.login);
+
+// userRouter.post(
+//     "/login",
+//     userController.authenticate,
+//     userController.redirectView
+// );

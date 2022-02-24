@@ -11,9 +11,6 @@ app.use("/user", userRouter);
 app.get("/sample", (req: express.Request, res: express.Response) => {
     res.render("sample");
 });
-app.use("/login", (req: express.Request, res: express.Response) => {
-    res.render("login", { layout: false });
-});
 
 const port = 3000;
 app.listen(port, () => {
