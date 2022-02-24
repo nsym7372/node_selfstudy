@@ -40,8 +40,8 @@ userRouter.delete(
 
 userRouter.get("/login", userController.login);
 
-// userRouter.post(
-//     "/login",
-//     userController.authenticate,
-//     userController.redirectView
-// );
+userRouter.post(
+    "/login",
+    userController.authenticate,
+    userController.redirectView
+);

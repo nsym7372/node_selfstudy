@@ -139,5 +139,28 @@ export const destroy: actionType = (req, res, next) => {
 };
 
 export const login: actionType = (req, res, next) => {
-    res.render("user/login", { layout: false });
+    // res.render("user/login", { layout: false });
+    res.render("user/login");
+};
+
+export const authenticate: actionType = (req, res, next) => {
+    db.User.findOne({ where: { email: req.body.email } })
+        .then((user) => {
+            if (user !== null && user.password === req.body.password) {
+                res.locals.redirect = `/user/index`;
+                req.flash(
+                    "success",
+                    `${user.fullName}'s logged in successfully!`
+                );
+                res.locals.user = user;
+            } else {
+                req.flash("error", "your account or password is incollect");
+                res.locals.redirect = `/user/login`;
+            }
+            next();
+        })
+        .catch((error) => {
+            console.log(`Error logging in user: ${error.message}`);
+            next(error);
+        });
 };
