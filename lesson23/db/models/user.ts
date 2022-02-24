@@ -3,6 +3,8 @@ import { Model, Sequelize, DataTypes } from "sequelize";
 import { db } from "./index";
 import { Section } from "./section";
 import { Subscriber } from "./subscriber";
+import bcrypt from "bcrypt";
+import { nextTick } from "process";
 export class User extends Model {
     public firstName!: string;
     public lastName!: string;
@@ -60,6 +62,18 @@ export class User extends Model {
                             .catch((error) => {
                                 console.log(
                                     `error in connecting subscriber: ${error.message}`
+                                );
+                            });
+                    },
+                    beforeSave: async (user, option) => {
+                        await bcrypt
+                            .hash(user.password, 10)
+                            .then((hash) => {
+                                user.password = hash;
+                            })
+                            .catch((error) => {
+                                console.log(
+                                    `error in hashing password: ${error.message}`
                                 );
                             });
                     },

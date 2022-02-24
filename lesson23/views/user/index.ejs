@@ -27,11 +27,6 @@
                             Zip Code
                         </th>
                         <th
-                            class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"
-                        >
-                            Password
-                        </th>
-                        <th
                             class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"
                         ></th>
                         <th
@@ -45,7 +40,6 @@
                         <td class="px-4 py-3"><%- user.fullName %></td>
                         <td class="px-4 py-3"><%- user.email %></td>
                         <td class="px-4 py-3"><%- user.zipcode %></td>
-                        <td class="px-4 py-3"><%- user.password %></td>
                         <td class="w-10 text-center">
                             <a href="<%- `/user/update/${user.id}` %> ">Edit</a>
                         </td>

@@ -70,8 +70,8 @@ export const detailView: actionType = (req, res, next) => {
     res.render("user/detail", { user: res.locals.user });
 };
 
-export const index: actionType = (req, res, next) => {
-    db.User.findAll()
+export const index: actionType = async (req, res, next) => {
+    await db.User.findAll()
         .then((users) => {
             res.locals.users = users;
             next();
@@ -86,8 +86,8 @@ export const indexView: actionType = (req, res, next) => {
     res.render("user/index", { users: res.locals.users });
 };
 
-export const update: actionType = (req, res, next) => {
-    db.User.findByPk(req.params.id)
+export const update: actionType = async (req, res, next) => {
+    await db.User.findByPk(req.params.id)
         .then((user) => {
             res.locals.user = user;
             next();
@@ -102,19 +102,18 @@ export const updateView: actionType = (req, res, next) => {
     res.render("user/update", { user: res.locals.user });
 };
 
-export const edit: actionType = (req, res, next) => {
-    console.log(req.params.id);
-    db.User.findByPk(req.params.id)
-        .then((user) => {
-            console.log(user);
-            if (user) {
-                user.firstName = req.body.firstName;
-                user.lastName = req.body.lastName;
-                user.email = req.body.email;
-                user.password = req.body.password;
-                user.zipcode = req.body.zipcode;
-                user.save();
-            }
+export const edit: actionType = async (req, res, next) => {
+    db.User.update(
+        {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password,
+            zipcode: req.body.zipcode,
+        },
+        { where: { id: req.params.id } }
+    )
+        .then(() => {
             res.locals.redirect = "/user/index";
             next();
         })
@@ -125,8 +124,6 @@ export const edit: actionType = (req, res, next) => {
 };
 
 export const destroy: actionType = (req, res, next) => {
-    //
-    console.log("delete");
     db.User.destroy({ where: { id: [req.params.id] } })
         .then(() => {
             res.locals.redirect = "/user/index";
