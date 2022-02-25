@@ -1,6 +1,7 @@
 import express from "express";
 import { db } from "../db/models";
 import bcrypt from "bcrypt";
+import { check, body, validationResult } from "express-validator";
 
 type actionType = (
     req: express.Request,
@@ -163,4 +164,27 @@ export const authenticate: actionType = async (req, res, next) => {
             console.log(`Error logging in user: ${error.message}`);
             next(error);
         });
+};
+
+export const valid = () => {
+    return [
+        check("zipcode", "Zip code is invalid")
+            .isInt()
+            .isLength({ min: 3, max: 5 }),
+    ];
+};
+
+export const validateOnCreate: actionType = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        req.flash(
+            "error",
+            errors.array().map((e) => e.msg)
+        );
+        console.log(req.body);
+        res.redirect("/user/create");
+        // res.locals.redirect = "/user/create";
+    } else {
+        next();
+    }
 };

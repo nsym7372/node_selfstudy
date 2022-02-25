@@ -4,6 +4,7 @@ import methodOverride from "method-override";
 import expressSession from "express-session";
 import cookieParser from "cookie-parser";
 import connectFlash from "connect-flash";
+import { check } from "express-validator";
 
 export const userRouter = express.Router();
 userRouter.use(cookieParser("secret_passcode"));
@@ -26,6 +27,8 @@ userRouter.get("/index", userController.index, userController.indexView);
 userRouter.get("/create", userController.create);
 userRouter.post(
     "/create",
+    userController.valid(),
+    userController.validateOnCreate,
     userController.generate,
     userController.redirectView
 );

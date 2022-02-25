@@ -21,11 +21,9 @@
         },
         {
             "type": "pwa-node",
-            "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": ["<node_internals>/**"],
-            "program": "${workspaceFolder}/lesson06/main.ts",
-            "outFiles": ["${workspaceFolder}/**/*.js"]
+            "request": "attach",
+            "name": "実行中のnodeプログラムにアタッチしてデバッグ",
+            "processId": "${command:PickProcess}"
         }
     ]
 }
