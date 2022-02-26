@@ -10,12 +10,10 @@ type actionType = (
 ) => void;
 
 export const create: actionType = (req, res, next) => {
-    //
-    res.render("user/create");
+    res.render("user/create", { user: res.locals.user });
 };
 
 export const generate: actionType = (req, res, next) => {
-    //
     db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -177,13 +175,22 @@ export const valid = () => {
 export const validateOnCreate: actionType = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        req.flash(
-            "error",
-            errors.array().map((e) => e.msg)
-        );
-        console.log(req.body);
-        res.redirect("/user/create");
-        // res.locals.redirect = "/user/create";
+        // redirectの場合、元の入力値引き渡しが困難
+
+        // req.flash(
+        //     "error",
+        //     errors.array().map((e) => e.msg)
+        // );
+        // res.locals.flashMessage = req.flash(
+        //     "error",
+        //     errors.array().map((e) => e.msg)
+        // );
+        // res.redirect("/user/create");
+
+        res.render("user/create", {
+            flashMessage: { error: errors.array().map((e) => e.msg) },
+            user: req.body,
+        });
     } else {
         next();
     }
