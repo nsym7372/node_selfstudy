@@ -1,5 +1,6 @@
 import express from "express";
 import * as userController from "../controllers/userController";
+import passport from "passport";
 
 export const userRouter = express.Router();
 
@@ -25,6 +26,12 @@ userRouter.get("/login", userController.login);
 
 userRouter.post(
     "/login",
-    userController.authenticate,
-    userController.redirectView
+    passport.authenticate("local", {
+        successRedirect: "/user/index",
+        successFlash: "logged in successfully",
+        failureRedirect: "/user/login",
+        failureFlash: true,
+    })
+    // userController.authenticate,
+    // userController.redirectView
 );

@@ -135,10 +135,13 @@ export const destroy: actionType = (req, res, next) => {
 };
 
 export const login: actionType = (req, res, next) => {
+    // [FYI]
     // res.render("user/login", { layout: false });
     res.render("user/login");
 };
 
+// [FYI]
+// passportで認証するため不要
 export const authenticate: actionType = async (req, res, next) => {
     await db.User.findOne({ where: { email: req.body.email } })
         .then(async (user) => {
@@ -175,6 +178,7 @@ export const valid = () => {
 export const validateOnCreate: actionType = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        // [FYI]
         // redirectの場合、元の入力値引き渡しが困難
 
         // req.flash(

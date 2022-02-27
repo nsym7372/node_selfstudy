@@ -2,10 +2,12 @@ import express from "express";
 import layout from "express-ejs-layouts";
 import { userRouter } from "./router/usersRouter";
 import passport from "passport";
+import localStrategy from "passport-local";
 import expressSession from "express-session";
 import cookieParser from "cookie-parser";
 import methodOverride from "method-override";
 import connectFlash from "connect-flash";
+import { db } from "./db/models";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -27,6 +29,40 @@ app.use((req, res, next) => {
 });
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(
+    new localStrategy.Strategy(
+        { usernameField: "email", passwordField: "password" },
+        (username, password, done) => {
+            // とりあえずアカウント存在確認のみ
+            db.User.findOne({ where: { email: username } })
+                .then((user) => {
+                    //
+                    if (user) {
+                        done(null, user);
+                    } else {
+                        done(null, false, {
+                            message: "ユーザー情報が正しくありません",
+                        });
+                    }
+                })
+                .catch((err) => {
+                    return done(err);
+                });
+        }
+    )
+);
+
+passport.serializeUser(function (user, done) {
+    console.log("serializeUser: ", user);
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    console.log("deserializeUser: ", user);
+    done(null, { user });
+});
+
 app.set("view engine", "ejs");
 
 app.use("/user", userRouter);
