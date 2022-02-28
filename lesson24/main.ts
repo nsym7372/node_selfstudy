@@ -24,12 +24,15 @@ app.use(
         saveUninitialized: false,
     })
 );
-app.use((req, res, next) => {
-    res.locals.flashMessage = req.flash();
-    next();
-});
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+    res.locals.flashMessage = req.flash();
+    res.locals.loggedIn = req.isAuthenticated();
+    res.locals.currentUser = req.user;
+    next();
+});
 
 passport.use(
     new localStrategy.Strategy(
