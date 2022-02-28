@@ -206,3 +206,11 @@ export const validateOnCreate: actionType = (req, res, next) => {
         next();
     }
 };
+
+export const toLoginIfNotAuthenticated: actionType = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+
+    res.redirect("login");
+};

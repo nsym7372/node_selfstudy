@@ -5,7 +5,11 @@ import passport from "passport";
 export const userRouter = express.Router();
 
 userRouter.get("/index", userController.index, userController.indexView);
-userRouter.get("/create", userController.create);
+userRouter.get(
+    "/create",
+    userController.toLoginIfNotAuthenticated,
+    userController.create
+);
 userRouter.post(
     "/create",
     userController.valid(),
