@@ -31,11 +31,20 @@ userRouter.get("/login", userController.login);
 userRouter.post(
     "/login",
     passport.authenticate("local", {
-        successRedirect: "/user/index",
+        // successRedirect: "/user/index",
         successFlash: "logged in successfully",
         failureRedirect: "/user/login",
         failureFlash: true,
-    })
+    }),
+    (req, res) => {
+        if (req.session.redirectTo) {
+            const redirectTo = `/user${req.session.redirectTo}`;
+            delete req.session.redirectTo;
+            return res.redirect(redirectTo);
+        }
+        res.redirect("index");
+    }
+
     // userController.authenticate,
     // userController.redirectView
 );

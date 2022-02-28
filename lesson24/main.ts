@@ -11,6 +11,13 @@ import { db } from "./db/models";
 import bcrypt from "bcrypt";
 
 const app = express();
+
+declare module "express-session" {
+    interface Session {
+        [keys: string]: string;
+    }
+}
+
 app.use(express.urlencoded({ extended: true }));
 app.use(layout);
 app.use(connectFlash());

@@ -212,5 +212,15 @@ export const toLoginIfNotAuthenticated: actionType = (req, res, next) => {
         return next();
     }
 
+    req.session.redirectTo = req.path;
     res.redirect("login");
+};
+
+export const redirectAfterLogin: actionType = (req, res, next) => {
+    if (req.session.redirectTo) {
+        const redirectTo = req.session.redirectTo;
+        delete req.session.redirectTo;
+        res.redirect(redirectTo);
+    }
+    res.redirect("index");
 };
