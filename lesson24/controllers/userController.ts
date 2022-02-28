@@ -140,6 +140,13 @@ export const login: actionType = (req, res, next) => {
     res.render("user/login");
 };
 
+export const logout: actionType = (req, res, next) => {
+    req.logout();
+    req.flash("success", "you have been logged out!");
+    res.locals.redirect = "login";
+    next();
+};
+
 // [FYI]
 // passportで認証するため不要
 export const authenticate: actionType = async (req, res, next) => {

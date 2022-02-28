@@ -35,3 +35,5 @@ userRouter.post(
     // userController.authenticate,
     // userController.redirectView
 );
+
+userRouter.get("/logout", userController.logout, userController.redirectView);
