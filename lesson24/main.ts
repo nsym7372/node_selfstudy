@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import methodOverride from "method-override";
 import connectFlash from "connect-flash";
 import { db } from "./db/models";
+import bcrypt from "bcrypt";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -34,11 +35,13 @@ passport.use(
     new localStrategy.Strategy(
         { usernameField: "email", passwordField: "password" },
         (username, password, done) => {
-            // とりあえずアカウント存在確認のみ
             db.User.findOne({ where: { email: username } })
-                .then((user) => {
+                .then(async (user) => {
                     //
-                    if (user) {
+                    if (
+                        user !== null &&
+                        (await bcrypt.compare(password, user.password))
+                    ) {
                         done(null, user);
                     } else {
                         done(null, false, {
