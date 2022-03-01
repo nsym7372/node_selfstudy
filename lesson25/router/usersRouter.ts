@@ -38,7 +38,7 @@ userRouter.post(
     }),
     (req, res) => {
         if (req.session.redirectTo) {
-            const redirectTo = `/user${req.session.redirectTo}`;
+            const redirectTo = `/users${req.session.redirectTo}`;
             delete req.session.redirectTo;
             return res.redirect(redirectTo);
         }

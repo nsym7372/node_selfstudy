@@ -4,7 +4,7 @@ import { db } from "./index";
 import { Section } from "./section";
 import { Subscriber } from "./subscriber";
 import bcrypt from "bcrypt";
-import { nextTick } from "process";
+import randToken from "rand-token";
 export class User extends Model {
     public firstName!: string;
     public lastName!: string;
@@ -14,6 +14,7 @@ export class User extends Model {
     public sections!: Section;
     public subscriber_id!: number;
     public fullName!: string;
+    public apiToken!: string;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -41,12 +42,15 @@ export class User extends Model {
                 email: DataTypes.STRING,
                 zipcode: DataTypes.INTEGER,
                 password: DataTypes.STRING,
+                apiToken: DataTypes.STRING,
             },
             {
                 sequelize,
                 modelName: "users",
                 hooks: {
                     beforeCreate: async (user, option) => {
+                        user.apiToken = randToken.generate(16);
+
                         if (user.subscriber_id !== undefined) {
                             return;
                         }

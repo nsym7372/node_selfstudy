@@ -239,9 +239,20 @@ export const errorJSON: ErrorRequestHandler = (error, req, res, next) => {
 };
 
 export const verifyToken: RequestHandler = (req, res, next) => {
-    const token = process.env.TOKEN || "recipetoken";
-    if (req.query.apiToken === token) {
-        return next();
+    const token = req.query.apiToken;
+    if (token) {
+        db.User.findOne({ where: { apiToken: token } })
+            .then((user) => {
+                if (user) {
+                    next();
+                } else {
+                    next(new Error("invalid api token."));
+                }
+            })
+            .catch((error) => {
+                next(new Error(error.message));
+            });
+    } else {
+        next(new Error("invalid api token."));
     }
-    next(new Error("invalid api token."));
 };
