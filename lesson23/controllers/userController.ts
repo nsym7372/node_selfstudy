@@ -10,7 +10,7 @@ type actionType = (
 ) => void;
 
 export const create: actionType = (req, res, next) => {
-    res.render("user/create", { user: res.locals.user });
+    res.render("users/create", { user: res.locals.user });
 };
 
 export const generate: actionType = (req, res, next) => {
@@ -29,7 +29,7 @@ export const generate: actionType = (req, res, next) => {
                 "success",
                 `${user.fullName}'s account created successfully!`
             );
-            res.locals.redirect = "/user/index";
+            res.locals.redirect = "/users/index";
             res.locals.user = user;
             next();
         })
@@ -66,7 +66,7 @@ export const detail: actionType = (req, res, next) => {
 };
 
 export const detailView: actionType = (req, res, next) => {
-    res.render("user/detail", { user: res.locals.user });
+    res.render("users/detail", { user: res.locals.user });
 };
 
 export const index: actionType = async (req, res, next) => {
@@ -82,7 +82,7 @@ export const index: actionType = async (req, res, next) => {
 };
 
 export const indexView: actionType = (req, res, next) => {
-    res.render("user/index", { users: res.locals.users });
+    res.render("users/index", { users: res.locals.users });
 };
 
 export const update: actionType = async (req, res, next) => {
@@ -98,7 +98,7 @@ export const update: actionType = async (req, res, next) => {
 };
 
 export const updateView: actionType = (req, res, next) => {
-    res.render("user/update", { user: res.locals.user });
+    res.render("users/update", { user: res.locals.user });
 };
 
 export const edit: actionType = async (req, res, next) => {
@@ -113,7 +113,7 @@ export const edit: actionType = async (req, res, next) => {
         { where: { id: req.params.id } }
     )
         .then(() => {
-            res.locals.redirect = "/user/index";
+            res.locals.redirect = "/users/index";
             next();
         })
         .catch((error) => {
@@ -125,7 +125,7 @@ export const edit: actionType = async (req, res, next) => {
 export const destroy: actionType = (req, res, next) => {
     db.User.destroy({ where: { id: [req.params.id] } })
         .then(() => {
-            res.locals.redirect = "/user/index";
+            res.locals.redirect = "/users/index";
             next();
         })
         .catch((error) => {
@@ -135,8 +135,8 @@ export const destroy: actionType = (req, res, next) => {
 };
 
 export const login: actionType = (req, res, next) => {
-    // res.render("user/login", { layout: false });
-    res.render("user/login");
+    // res.render("users/login", { layout: false });
+    res.render("users/login");
 };
 
 export const authenticate: actionType = async (req, res, next) => {
@@ -146,7 +146,7 @@ export const authenticate: actionType = async (req, res, next) => {
                 user !== null &&
                 (await bcrypt.compare(req.body.password, user.password))
             ) {
-                res.locals.redirect = `/user/index`;
+                res.locals.redirect = `/users/index`;
                 req.flash(
                     "success",
                     `${user.fullName}'s logged in successfully!`
@@ -154,7 +154,7 @@ export const authenticate: actionType = async (req, res, next) => {
                 res.locals.user = user;
             } else {
                 req.flash("error", "your account or password is incollect");
-                res.locals.redirect = `/user/login`;
+                res.locals.redirect = `/users/login`;
             }
             next();
         })
@@ -185,9 +185,9 @@ export const validateOnCreate: actionType = (req, res, next) => {
         //     "error",
         //     errors.array().map((e) => e.msg)
         // );
-        // res.redirect("/user/create");
+        // res.redirect("/users/create");
 
-        res.render("user/create", {
+        res.render("users/create", {
             flashMessage: { error: errors.array().map((e) => e.msg) },
             user: req.body,
         });

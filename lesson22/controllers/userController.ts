@@ -10,7 +10,7 @@ type actionType = (
 
 export const create: actionType = (req, res, next) => {
     //
-    res.render("user/create");
+    res.render("users/create");
 };
 
 export const generate: actionType = (req, res, next) => {
@@ -30,7 +30,7 @@ export const generate: actionType = (req, res, next) => {
                 "success",
                 `${user.fullName}'s account created successfully!`
             );
-            res.locals.redirect = "/user/index";
+            res.locals.redirect = "/users/index";
             res.locals.user = user;
             next();
         })
@@ -67,7 +67,7 @@ export const detail: actionType = (req, res, next) => {
 };
 
 export const detailView: actionType = (req, res, next) => {
-    res.render("user/detail", { user: res.locals.user });
+    res.render("users/detail", { user: res.locals.user });
 };
 
 export const index: actionType = (req, res, next) => {
@@ -83,7 +83,7 @@ export const index: actionType = (req, res, next) => {
 };
 
 export const indexView: actionType = (req, res, next) => {
-    res.render("user/index", { users: res.locals.users });
+    res.render("users/index", { users: res.locals.users });
 };
 
 export const update: actionType = (req, res, next) => {
@@ -99,7 +99,7 @@ export const update: actionType = (req, res, next) => {
 };
 
 export const updateView: actionType = (req, res, next) => {
-    res.render("user/update", { user: res.locals.user });
+    res.render("users/update", { user: res.locals.user });
 };
 
 export const edit: actionType = (req, res, next) => {
@@ -115,7 +115,7 @@ export const edit: actionType = (req, res, next) => {
                 user.zipcode = req.body.zipcode;
                 user.save();
             }
-            res.locals.redirect = "/user/index";
+            res.locals.redirect = "/users/index";
             next();
         })
         .catch((error) => {
@@ -129,7 +129,7 @@ export const destroy: actionType = (req, res, next) => {
     console.log("delete");
     db.User.destroy({ where: { id: [req.params.id] } })
         .then(() => {
-            res.locals.redirect = "/user/index";
+            res.locals.redirect = "/users/index";
             next();
         })
         .catch((error) => {
