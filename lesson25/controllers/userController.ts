@@ -237,3 +237,11 @@ export const errorJSON: ErrorRequestHandler = (error, req, res, next) => {
         message: error ? error.message : "Unknown Error.",
     });
 };
+
+export const verifyToken: RequestHandler = (req, res, next) => {
+    const token = process.env.TOKEN || "recipetoken";
+    if (req.query.apiToken === token) {
+        return next();
+    }
+    next(new Error("invalid api token."));
+};

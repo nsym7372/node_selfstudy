@@ -10,6 +10,7 @@ import methodOverride from "method-override";
 import connectFlash from "connect-flash";
 import { db } from "./db/models";
 import bcrypt from "bcrypt";
+import { appendFileSync } from "fs";
 
 const app = express();
 
@@ -78,6 +79,7 @@ passport.deserializeUser(function (user, done) {
 });
 
 app.set("view engine", "ejs");
+app.set("token", process.env.TOKEN || "recipetoken");
 
 app.use("/", router);
 app.get("/sample", (req: express.Request, res: express.Response) => {

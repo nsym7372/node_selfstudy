@@ -3,6 +3,7 @@ import * as userController from "../controllers/userController";
 import passport from "passport";
 
 export const apiRouter = express.Router();
+apiRouter.use(userController.verifyToken);
 
-apiRouter.get("/index", userController.index, userController.respondJSON);
+apiRouter.get("/users", userController.index, userController.respondJSON);
 apiRouter.use(userController.errorJSON);
