@@ -82,6 +82,9 @@ export const index: actionType = async (req, res, next) => {
 };
 
 export const indexView: actionType = (req, res, next) => {
+    if (req.query.format === "json") {
+        return res.json(res.locals.users);
+    }
     res.render("users/index", { users: res.locals.users });
 };
 
