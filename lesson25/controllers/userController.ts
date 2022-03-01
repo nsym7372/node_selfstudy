@@ -1,19 +1,14 @@
-import express from "express";
+import express, { ErrorRequestHandler, RequestHandler } from "express";
 import { db } from "../db/models";
 import bcrypt from "bcrypt";
 import { check, validationResult } from "express-validator";
+import httpstatus from "http-status-codes";
 
-type actionType = (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-) => void;
-
-export const create: actionType = (req, res, next) => {
+export const create: RequestHandler = (req, res, next) => {
     res.render("users/create", { user: res.locals.user });
 };
 
-export const generate: actionType = (req, res, next) => {
+export const generate: RequestHandler = (req, res, next) => {
     db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -43,7 +38,7 @@ export const generate: actionType = (req, res, next) => {
         });
 };
 
-export const redirectView: actionType = (req, res, next) => {
+export const redirectView: RequestHandler = (req, res, next) => {
     const redirectPath = res.locals.redirect;
     if (redirectPath) {
         res.redirect(redirectPath);
@@ -52,7 +47,7 @@ export const redirectView: actionType = (req, res, next) => {
     }
 };
 
-export const detail: actionType = (req, res, next) => {
+export const detail: RequestHandler = (req, res, next) => {
     db.User.findByPk(req.params.id)
         .then((user) => {
             //
@@ -65,11 +60,11 @@ export const detail: actionType = (req, res, next) => {
         });
 };
 
-export const detailView: actionType = (req, res, next) => {
+export const detailView: RequestHandler = (req, res, next) => {
     res.render("users/detail", { user: res.locals.user });
 };
 
-export const index: actionType = async (req, res, next) => {
+export const index: RequestHandler = async (req, res, next) => {
     await db.User.findAll()
         .then((users) => {
             res.locals.users = users;
@@ -81,14 +76,15 @@ export const index: actionType = async (req, res, next) => {
         });
 };
 
-export const indexView: actionType = (req, res, next) => {
-    if (req.query.format === "json") {
-        return res.json(res.locals.users);
-    }
+export const indexView: RequestHandler = (req, res, next) => {
+    // [FYI]クエリ文字列に「format=json」つけてアクセスする場合
+    // if (req.query.format === "json") {
+    //     return res.json(res.locals.users);
+    // }
     res.render("users/index", { users: res.locals.users });
 };
 
-export const update: actionType = async (req, res, next) => {
+export const update: RequestHandler = async (req, res, next) => {
     await db.User.findByPk(req.params.id)
         .then((user) => {
             res.locals.user = user;
@@ -100,11 +96,11 @@ export const update: actionType = async (req, res, next) => {
         });
 };
 
-export const updateView: actionType = (req, res, next) => {
+export const updateView: RequestHandler = (req, res, next) => {
     res.render("users/update", { user: res.locals.user });
 };
 
-export const edit: actionType = async (req, res, next) => {
+export const edit: RequestHandler = async (req, res, next) => {
     db.User.update(
         {
             firstName: req.body.firstName,
@@ -125,7 +121,7 @@ export const edit: actionType = async (req, res, next) => {
         });
 };
 
-export const destroy: actionType = (req, res, next) => {
+export const destroy: RequestHandler = (req, res, next) => {
     db.User.destroy({ where: { id: [req.params.id] } })
         .then(() => {
             res.locals.redirect = "/users/index";
@@ -137,13 +133,13 @@ export const destroy: actionType = (req, res, next) => {
         });
 };
 
-export const login: actionType = (req, res, next) => {
+export const login: RequestHandler = (req, res, next) => {
     // [FYI]
     // res.render("users/login", { layout: false });
     res.render("users/login");
 };
 
-export const logout: actionType = (req, res, next) => {
+export const logout: RequestHandler = (req, res, next) => {
     req.logout();
     req.flash("success", "you have been logged out!");
     res.locals.redirect = "login";
@@ -152,7 +148,7 @@ export const logout: actionType = (req, res, next) => {
 
 // [FYI]
 // passportで認証するため不要
-export const authenticate: actionType = async (req, res, next) => {
+export const authenticate: RequestHandler = async (req, res, next) => {
     await db.User.findOne({ where: { email: req.body.email } })
         .then(async (user) => {
             if (
@@ -185,7 +181,7 @@ export const valid = () => {
     ];
 };
 
-export const validateOnCreate: actionType = (req, res, next) => {
+export const validateOnCreate: RequestHandler = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         // [FYI]
@@ -210,7 +206,7 @@ export const validateOnCreate: actionType = (req, res, next) => {
     }
 };
 
-export const toLoginIfNotAuthenticated: actionType = (req, res, next) => {
+export const toLoginIfNotAuthenticated: RequestHandler = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
@@ -219,11 +215,25 @@ export const toLoginIfNotAuthenticated: actionType = (req, res, next) => {
     res.redirect("login");
 };
 
-export const redirectAfterLogin: actionType = (req, res, next) => {
+export const redirectAfterLogin: RequestHandler = (req, res, next) => {
     if (req.session.redirectTo) {
         const redirectTo = req.session.redirectTo;
         delete req.session.redirectTo;
         res.redirect(redirectTo);
     }
     res.redirect("index");
+};
+
+export const respondJSON: RequestHandler = (req, res, next) => {
+    res.json({
+        status: httpstatus.OK,
+        data: res.locals,
+    });
+};
+
+export const errorJSON: ErrorRequestHandler = (error, req, res, next) => {
+    res.json({
+        status: httpstatus.INTERNAL_SERVER_ERROR,
+        message: error ? error.message : "Unknown Error.",
+    });
 };
