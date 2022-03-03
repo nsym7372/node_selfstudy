@@ -4,7 +4,6 @@ import passport from "passport";
 import jsonWebToken from "jsonwebtoken";
 
 export const apiRouter = express.Router();
-// apiRouter.use(userController.verifyToken);
 
 apiRouter.post(
     "/login",
@@ -16,7 +15,7 @@ apiRouter.post(
                 const signedToken = jsonWebToken.sign(
                     {
                         data: user.id,
-                        exp: new Date().setDate(Number(new Date().getDate) + 1),
+                        // exp: new Date().setDate(Number(new Date().getDate) + 1),
                     },
                     "secret_encoding_passphrase"
                 );
@@ -33,6 +32,8 @@ apiRouter.post(
         })(req, res, next);
     }
 );
+
+apiRouter.use(userController.verifyJwt);
 
 apiRouter.get("/users", userController.index, userController.respondJSON);
 apiRouter.use(userController.errorJSON);

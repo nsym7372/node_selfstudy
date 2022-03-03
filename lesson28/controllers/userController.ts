@@ -3,6 +3,7 @@ import { db } from "../db/models";
 import bcrypt from "bcrypt";
 import { check, validationResult } from "express-validator";
 import httpstatus from "http-status-codes";
+import jsonWebToken, { JwtPayload } from "jsonwebtoken";
 
 export const create: RequestHandler = (req, res, next) => {
     res.render("users/create", { user: res.locals.user });
@@ -254,5 +255,42 @@ export const verifyToken: RequestHandler = (req, res, next) => {
             });
     } else {
         next(new Error("invalid api token."));
+    }
+};
+
+export const verifyJwt: RequestHandler = (req, res, next) => {
+    const token = req.headers.token as string;
+    if (token) {
+        jsonWebToken.verify(
+            token,
+            "secret_encoding_passphrase",
+            (errors, decorded) => {
+                //
+                if (decorded) {
+                    const payload = decorded as JwtPayload;
+                    db.User.findByPk(payload.data).then((user) => {
+                        if (user) {
+                            next();
+                        } else {
+                            res.status(httpstatus.FORBIDDEN).json({
+                                error: true,
+                                message: "no user account found",
+                            });
+                        }
+                    });
+                } else {
+                    res.status(httpstatus.UNAUTHORIZED).json({
+                        error: true,
+                        message: "cannot verify api token",
+                    });
+                    next();
+                }
+            }
+        );
+    } else {
+        res.status(httpstatus.UNAUTHORIZED).json({
+            error: true,
+            message: "provide token",
+        });
     }
 };
