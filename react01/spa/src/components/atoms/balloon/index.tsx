@@ -2,10 +2,21 @@ import React, { ReactNode, VFC } from "react";
 import styles from "./styles.module.css";
 
 interface Props {
-    children: ReactNode;
+    /**
+     * ラベル
+     */
+    children?: ReactNode;
+    /**
+     * インラインスタイル
+     */
+    options?: {};
 }
 
 export const Balloon: VFC<Props> = (props) => {
-    const { children } = props;
-    return <span className={styles.balloon}>{children}</span>;
+    const { children, options } = props;
+    return (
+        <span className={styles.balloon} style={options}>
+            {children}
+        </span>
+    );
 };
