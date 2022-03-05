@@ -1,7 +1,9 @@
 import React, { VFC } from "react";
-import styles from "./styles.module.css";
+import { IconPresenter } from "./IconPresenter";
+import { IconContainer } from "./IconContainer";
 
-interface Props {
+// 全部
+export interface IconProps {
     height: number;
     width: number;
     src: string;
@@ -9,18 +11,23 @@ interface Props {
     options: {};
 }
 
-export const TrashCanIcon: VFC<Props> = (props) => {
-    const { height, width, src, options, onClick } = props;
+export interface ContainerProps extends IconProps {
+    presenter: (props: IconProps) => JSX.Element;
+}
 
+export interface PresenterProps extends IconProps {
+    className: string;
+}
+
+// const ret = (props: iconProps) => <IconPresenter {...presenterProps} />;
+
+export const TrashCanIcon: VFC<IconProps> = (props) => {
     return (
-        <img
-            src={src}
-            alt=""
-            height={height}
-            width={width}
-            className={onClick && `${styles.clickable}`}
-            onClick={onClick}
-            {...options}
+        <IconContainer
+            presenter={(iconProps: IconProps) => (
+                <IconPresenter {...iconProps} />
+            )}
+            {...props}
         />
     );
 };
