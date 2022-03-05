@@ -19,7 +19,7 @@ export interface PresenterProps extends IconProps {
     className: string;
 }
 
-export const TrashCanIcon: VFC<IconProps> = (iconProps) => {
+export const IconFactory: VFC<IconProps> = (iconProps) => {
     return (
         <IconContainer
             presenter={(presetnerProps: PresenterProps) => (
@@ -29,3 +29,15 @@ export const TrashCanIcon: VFC<IconProps> = (iconProps) => {
         />
     );
 };
+
+IconFactory.defaultProps = {
+    height: 32,
+    width: 32,
+    onClick: undefined,
+    src: "img/trash_can.svg",
+    options: {},
+};
+
+// export const TrashCanIcon = () => {
+//     return <IconFactory />;
+// };
