@@ -1,11 +1,18 @@
 import React, { VFC } from "react";
-import { IconProps } from ".";
+import { PresenterProps } from ".";
+import styles from "./styles.module.css";
 
-export const IconPresenter: VFC<IconProps> = (props) => {
-    const { height, width, options, src } = props;
+export const IconPresenter: VFC<PresenterProps> = (props) => {
+    const { height, width, options, src, className } = props;
 
     return (
-        // <img src="icon.svg" alt="" height={height} width={width} {...options} />
-        <img src={src} alt="" height={height} width={width} {...options} />
+        <img
+            className={`${styles[className]}`}
+            src={src}
+            alt=""
+            height={height}
+            width={width}
+            {...options}
+        />
     );
 };

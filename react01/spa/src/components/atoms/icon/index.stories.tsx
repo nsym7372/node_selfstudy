@@ -18,10 +18,10 @@ Primary.args = {
     src: "icon.svg",
 };
 
-// export const Clickable = Template.bind({});
-// Clickable.args = {
-//     height: 24,
-//     width: 24,
-//     src: "icon.svg",
-//     onClick: () => alert("hello"),
-// };
+export const Clickable = Template.bind({});
+Clickable.args = {
+    height: 32,
+    width: 32,
+    src: "icon.svg",
+    onClick: () => alert("hello"),
+};

@@ -12,22 +12,20 @@ export interface IconProps {
 }
 
 export interface ContainerProps extends IconProps {
-    presenter: (props: IconProps) => JSX.Element;
+    presenter: (props: PresenterProps) => JSX.Element;
 }
 
 export interface PresenterProps extends IconProps {
     className: string;
 }
 
-// const ret = (props: iconProps) => <IconPresenter {...presenterProps} />;
-
-export const TrashCanIcon: VFC<IconProps> = (props) => {
+export const TrashCanIcon: VFC<IconProps> = (iconProps) => {
     return (
         <IconContainer
-            presenter={(iconProps: IconProps) => (
-                <IconPresenter {...iconProps} />
+            presenter={(presetnerProps: PresenterProps) => (
+                <IconPresenter {...presetnerProps} />
             )}
-            {...props}
+            {...iconProps}
         />
     );
 };
