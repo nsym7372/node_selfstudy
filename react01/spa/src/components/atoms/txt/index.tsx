@@ -11,7 +11,7 @@ interface DefaultPropsType {
 }
 
 // 必須
-interface TxtPropsType extends DefaultPropsType {
+interface TxtPropsType extends Partial<DefaultPropsType> {
     role: "default" | "info" | "warning";
 }
 
@@ -25,4 +25,8 @@ export const TxtFactory: VFC<TxtPropsType> = ({
     return (
         <Tag className={[styles[role], styles[size]].join(" ")}>{children}</Tag>
     );
+};
+
+export const InfoTxt = () => {
+    return <TxtFactory role="info" />;
 };
