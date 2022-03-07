@@ -1,25 +1,18 @@
 import React, { ReactNode, VFC } from "react";
 import styles from "./styles.module.css";
 
-// 全部
-
-// 任意 デフォルト値あり
-interface DefaultPropsType {
+interface Props {
     tag: "p";
     size: "s" | "m" | "l";
+    role: "default" | "info" | "warning";
     children: ReactNode;
 }
 
-// 必須
-interface TxtPropsType extends Partial<DefaultPropsType> {
-    role: "default" | "info" | "warning";
-}
-
-export const TxtFactory: VFC<TxtPropsType> = ({
+export const TxtFactory: VFC<Partial<Props>> = ({
     tag = "p",
     size = "m",
-    children = "Hello",
-    role,
+    children,
+    role = "default",
 }) => {
     const Tag = tag as React.ElementType;
     return (
@@ -27,6 +20,14 @@ export const TxtFactory: VFC<TxtPropsType> = ({
     );
 };
 
-export const InfoTxt = () => {
-    return <TxtFactory role="info" />;
+export const Txt: VFC<Omit<Partial<Props>, "role">> = (props) => {
+    return <TxtFactory role="default" {...props} />;
+};
+
+export const InfoTxt: VFC<Omit<Partial<Props>, "role">> = (props) => {
+    return <TxtFactory role="info" {...props} />;
+};
+
+export const WarningTxt: VFC<Omit<Partial<Props>, "role">> = (props) => {
+    return <TxtFactory role="warning" {...props} />;
 };

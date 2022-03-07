@@ -3,6 +3,7 @@ import { Heading } from "../../atoms/heading";
 import { Img } from "../../atoms/img";
 import { DeleteButton } from "../../molecules/DeleteButton";
 import styles from "./styles.module.css";
+import { InfoTxt } from "../../atoms/txt";
 
 interface ProgramType {
     id: number;
@@ -38,6 +39,7 @@ export const Notification = ({
                 <Heading level={3} visualLevel={6}>
                     {program.title}
                 </Heading>
+                <InfoTxt size="s">{program.channelName}</InfoTxt>
                 {/* <InfoTxt></InfoTxt> */}
                 {/* <Time></Time> */}
                 <DeleteButton onClick={onClickDelete} className={styles.del} />
