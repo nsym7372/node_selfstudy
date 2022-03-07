@@ -16,18 +16,12 @@ Primary.args = {
     height: 32,
     width: 32,
     onClick: undefined,
-    src: "img/trash_can.svg",
+    image: "trash_can",
     options: {},
 };
 
-// export const Clickable = Template.bind({});
-// Clickable.args = {
-//     src: "img/trash_can.svg",
-//     onClick: () => alert("hello"),
-// };
-
 export const Chevron = Template.bind({});
 Chevron.args = {
-    src: "img/chevron.svg",
+    image: "chevron",
     onClick: () => alert("hello"),
 };
