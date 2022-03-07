@@ -1,11 +1,13 @@
 import React, { VFC } from "react";
 
 interface Props {
-    alt?: string;
-    options: {};
+    width: number;
+    height: number;
+    src: string;
+    className: string;
+    [keys: string]: string | number;
 }
 
 export const Img: VFC<Props> = (props) => {
-    const { alt, options } = props;
-    return <img alt={alt} {...options} />;
+    return <img alt="" {...props} />;
 };

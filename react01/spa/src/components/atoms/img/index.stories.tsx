@@ -11,9 +11,7 @@ const Template: ComponentStory<typeof Img> = (args) => <Img {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-    options: {
-        src: "logo192.png",
-        width: "128",
-        height: "128",
-    },
+    src: "logo192.png",
+    width: 128,
+    height: 128,
 };
