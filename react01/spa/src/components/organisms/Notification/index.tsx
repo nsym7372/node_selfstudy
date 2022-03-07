@@ -1,4 +1,5 @@
 import React, { VFC } from "react";
+import { Heading } from "../../atoms/heading";
 import { Img } from "../../atoms/img";
 import { DeleteButton } from "../../molecules/DeleteButton";
 import styles from "./styles.module.css";
@@ -34,7 +35,9 @@ export const Notification = ({
                 />
             </div>
             <div className={styles.body}>
-                {/* Heading */}
+                <Heading level={3} visualLevel={6}>
+                    {program.title}
+                </Heading>
                 {/* <InfoTxt></InfoTxt> */}
                 {/* <Time></Time> */}
                 <DeleteButton onClick={onClickDelete} className={styles.del} />
