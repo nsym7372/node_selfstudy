@@ -21,6 +21,12 @@ InValid.args = {
     children: "invalid",
 };
 
+export const Format = Template.bind({});
+Format.args = {
+    children: 1507032000000,
+    format: "MM月DD日(ddd)HH:mm",
+};
+
 // export const Chevron = Template.bind({});
 // Chevron.args = {
 //     src: "img/chevron.svg",
