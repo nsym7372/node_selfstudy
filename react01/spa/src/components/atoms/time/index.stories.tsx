@@ -3,7 +3,7 @@ import { TimeFactory } from ".";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 export default {
-    title: "Sample/TimeFactory",
+    title: "Atoms/TimeFactory",
     component: TimeFactory,
 } as ComponentMeta<typeof TimeFactory>;
 

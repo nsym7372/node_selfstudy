@@ -3,7 +3,7 @@ import { DeleteButton } from ".";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 export default {
-    title: "Sample/DeleteButton",
+    title: "Molecules/DeleteButton",
     component: DeleteButton,
 } as ComponentMeta<typeof DeleteButton>;
 

@@ -3,7 +3,7 @@ import { TxtFactory } from ".";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 export default {
-    title: "Sample/TxtFactory",
+    title: "Atoms/TxtFactory",
     component: TxtFactory,
 } as ComponentMeta<typeof TxtFactory>;
 

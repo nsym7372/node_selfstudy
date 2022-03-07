@@ -3,7 +3,7 @@ import { Balloon } from "./index";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 export default {
-    title: "Sample/Balloon",
+    title: "Atoms/Balloon",
     component: Balloon,
 } as ComponentMeta<typeof Balloon>;
 

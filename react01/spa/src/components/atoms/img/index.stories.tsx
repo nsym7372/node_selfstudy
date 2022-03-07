@@ -3,7 +3,7 @@ import { Img } from "./index";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 export default {
-    title: "Sample/Img",
+    title: "Atoms/Img",
     component: Img,
 } as ComponentMeta<typeof Img>;
 
