@@ -5,25 +5,16 @@ import { TimeContainer } from "./TimeContainer";
 // 全部
 export interface TimeProps {
     children: ReactNode;
-    datetime: Date;
-    format: string;
+    datetime?: string;
+    format?: string;
 }
 
 export interface ContainerProps extends TimeProps {
-    presenter: (props: PresenterProps) => JSX.Element;
+    presenter: (props: TimeProps) => JSX.Element;
 }
 
-export interface PresenterProps extends TimeProps {
-    text: string;
-}
-
-export const TimeFactory: VFC<TimeProps> = (props) => {
+export const Time: VFC<TimeProps> = (props) => {
     return (
-        <TimeContainer
-            presenter={(presetnerProps: PresenterProps) => (
-                <TimePresenter {...presetnerProps} />
-            )}
-            {...props}
-        />
+        <TimeContainer presenter={(p) => <TimePresenter {...p} />} {...props} />
     );
 };

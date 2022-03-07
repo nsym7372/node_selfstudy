@@ -4,6 +4,7 @@ import { Img } from "../../atoms/img";
 import { DeleteButton } from "../../molecules/DeleteButton";
 import styles from "./styles.module.css";
 import { InfoTxt } from "../../atoms/txt";
+import { Time } from "../../atoms/time";
 
 interface ProgramType {
     id: number;
@@ -40,8 +41,11 @@ export const Notification = ({
                     {program.title}
                 </Heading>
                 <InfoTxt size="s">{program.channelName}</InfoTxt>
-                {/* <InfoTxt></InfoTxt> */}
-                {/* <Time></Time> */}
+                <InfoTxt size="s" className={styles.time}>
+                    <Time format="MM月DD日(ddd)HH:mm">{program.startAt}</Time>〜
+                    <Time format="MM月DD日(ddd)HH:mm">{program.endAt}</Time>
+                </InfoTxt>
+
                 <DeleteButton onClick={onClickDelete} className={styles.del} />
             </div>
         </section>

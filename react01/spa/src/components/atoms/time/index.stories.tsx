@@ -1,15 +1,13 @@
 import React from "react";
-import { TimeFactory } from ".";
+import { Time } from ".";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 export default {
-    title: "Atoms/TimeFactory",
-    component: TimeFactory,
-} as ComponentMeta<typeof TimeFactory>;
+    title: "Atoms/Time",
+    component: Time,
+} as ComponentMeta<typeof Time>;
 
-const Template: ComponentStory<typeof TimeFactory> = (args) => (
-    <TimeFactory {...args} />
-);
+const Template: ComponentStory<typeof Time> = (args) => <Time {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -26,9 +24,3 @@ Format.args = {
     children: 1507032000000,
     format: "MM月DD日(ddd)HH:mm",
 };
-
-// export const Chevron = Template.bind({});
-// Chevron.args = {
-//     src: "img/chevron.svg",
-//     onClick: () => alert("hello"),
-// };

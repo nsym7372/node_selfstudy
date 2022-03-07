@@ -6,6 +6,7 @@ interface Props {
     size: "s" | "m" | "l";
     role: "default" | "info" | "warning";
     children: ReactNode;
+    className: string;
 }
 
 export const TxtFactory: VFC<Partial<Props>> = ({

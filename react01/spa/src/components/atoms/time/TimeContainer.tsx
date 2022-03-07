@@ -3,14 +3,19 @@ import { ContainerProps } from ".";
 import moment from "moment";
 
 export const TimeContainer: VFC<ContainerProps> = (props) => {
-    const { presenter, children, format } = props;
+    const { presenter, format } = props;
+    let { children, datetime } = props;
 
     const value = parseInt(children as string, 10);
-    const text = isValid(value)
-        ? formatDatetime(value, format)
+    children = isValid(value)
+        ? formatDatetime(value, props.format)
         : "有効な時間表現ではありません";
 
-    return presenter({ text, ...props });
+    if (!datetime) {
+        datetime = formatDatetime(value);
+    }
+
+    return presenter({ format, children, datetime });
 };
 
 const isValid = (unixtime: number) => {
