@@ -3,7 +3,7 @@ import { PresenterProps } from ".";
 import styles from "./styles.module.css";
 
 export const IconPresenter: VFC<PresenterProps> = (props) => {
-    const { height, width, options, src, className } = props;
+    const { height, width, options, src, className, onClick } = props;
 
     return (
         <img
@@ -12,6 +12,7 @@ export const IconPresenter: VFC<PresenterProps> = (props) => {
             alt=""
             height={height}
             width={width}
+            onClick={onClick}
             {...options}
         />
     );

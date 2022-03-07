@@ -3,10 +3,16 @@ import styles from "./styles.module.css";
 import { Balloon } from "../../atoms/balloon";
 import { TrashCanIcon } from "../../atoms/icon";
 
-export const DeleteButton = ({ ...props }) => {
+export const DeleteButton = ({
+    onClick,
+    ...props
+}: {
+    onClick: () => void;
+    [keys: string]: string | (() => void);
+}) => {
     return (
         <span className={[styles.root].join(" ")} {...props}>
-            <TrashCanIcon />
+            <TrashCanIcon onClick={onClick} />
             <Balloon>削除する</Balloon>
         </span>
     );
