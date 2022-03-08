@@ -45,9 +45,8 @@ export const Notification = ({
                     <Time format="MM月DD日(ddd)HH:mm">{program.startAt}</Time>〜
                     <Time format="MM月DD日(ddd)HH:mm">{program.endAt}</Time>
                 </InfoTxt>
-
-                <DeleteButton onClick={onClickDelete} className={styles.del} />
             </div>
+            <DeleteButton onClick={onClickDelete} className={styles.del} />
         </section>
     );
 };

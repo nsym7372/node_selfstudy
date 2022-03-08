@@ -1,13 +1,16 @@
 .default {
     color: #000;
+    margin: 0;
 }
 
 .info {
     color: #8c8c8c;
+    margin: 0;
 }
 
 .warning {
     color: #f0163a;
+    margin: 0;
 }
 
 .s {
