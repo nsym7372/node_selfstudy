@@ -3,7 +3,7 @@ import React, { VFC } from "react";
 import { NotificationContainer } from "./NotificationContainer";
 import { NotificationPresenter } from "./NotificationPresenter";
 
-interface ProgramType {
+export interface ProgramType {
     id: number;
     thumbnail: string;
     title: string;
