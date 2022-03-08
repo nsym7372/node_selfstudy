@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof Notification> = (args) => (
 export const Primary = Template.bind({});
 Primary.args = {
     onClickDelete: () => {
-        alert("削除ボタンがクリックされました");
+        console.log("削除ボタンがクリックされました");
     },
     program: {
         id: 0,
