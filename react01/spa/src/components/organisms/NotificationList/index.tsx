@@ -15,6 +15,7 @@ export const NotificationList: VFC<Props> = (notificationListProps) => {
             {programs.map((program, i) => {
                 return (
                     <Notification
+                        key={program.id}
                         program={program}
                         className={styles.item}
                         onClickDelete={onClickDelete}
