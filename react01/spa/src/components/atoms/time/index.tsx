@@ -5,7 +5,7 @@ import { TimeContainer } from "./TimeContainer";
 // 全部
 export interface TimeProps {
     children: ReactNode;
-    datetime?: string;
+    dtime?: string;
     format?: string;
 }
 
