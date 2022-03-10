@@ -18,5 +18,7 @@ Primary.args = {
 
 export const AbsoleteConfig = Template.bind({});
 AbsoleteConfig.args = {
-    options: { position: "absolete", top: "15px", left: "15px" },
+    children: "テキスト",
+    style: { position: "absolete", top: "20px", left: "100px" },
+    sample: "hello",
 };
