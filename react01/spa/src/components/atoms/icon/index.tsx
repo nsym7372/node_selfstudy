@@ -9,7 +9,7 @@ interface OptionProps {
     width: number;
     onClick: () => void;
     options: {};
-    image: "trash_can" | "chevron";
+    image: "trash_can" | "chevron" | "svg_icon";
 }
 
 export interface ContainerProps extends Partial<OptionProps> {

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
-import { Balloon } from "../../atoms/balloon";
+import { Balloon } from "../../atoms/balloon/index";
 import { TrashCanIcon } from "../../atoms/icon";
 
 export const DeleteButton = ({

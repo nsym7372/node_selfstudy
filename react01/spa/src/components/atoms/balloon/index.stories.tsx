@@ -1,6 +1,7 @@
 import React from "react";
 import { Balloon } from "./index";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { IconFactory } from "../icon";
 
 export default {
     title: "Atoms/Balloon",
@@ -21,4 +22,10 @@ AbsoleteConfig.args = {
     children: "テキスト",
     style: { position: "absolete", top: "20px", left: "100px" },
     sample: "hello",
+};
+
+export const IconLabel = Template.bind({});
+const icon = <IconFactory image="svg_icon" />;
+IconLabel.args = {
+    children: icon,
 };
